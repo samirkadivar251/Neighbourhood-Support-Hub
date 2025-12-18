@@ -1,0 +1,134 @@
+﻿/* Container styling */
+.create-event-container {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 30px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+    /* Heading styling */
+    .create-event-container h2 {
+        text-align: center;
+        color: #333;
+        font-size: 26px;
+        font-weight: bold;
+        margin-bottom: 30px;
+        text-transform: uppercase;
+    }
+
+/* Form styling */
+.form-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Label styling */
+.control-label {
+    font-weight: bold;
+    color: #444;
+    margin-bottom: 5px;
+}
+
+/* Input field styling */
+.form-control {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 5px;
+    box-sizing: border-box;
+}
+
+    .form-control:focus {
+        border-color: #007BFF;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+    }
+
+/* Text area styling */
+textarea.form-control {
+    height: 150px;
+    resize: vertical;
+}
+
+/* File input styling */
+input[type="file"].form-control {
+    padding: 10px;
+    background-color: #f0f0f0;
+}
+
+/* Validation error message styling */
+.text-danger {
+    color: #dc3545;
+    font-size: 12px;
+}
+
+/* Button styling */
+button.btn-primary {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+    button.btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+/* 🛠 Fix overlapping and responsiveness */
+@media (max-width: 768px) {
+    .create-event-container {
+        padding: 20px;
+        margin: 20px;
+    }
+
+        .create-event-container h2 {
+            font-size: 22px;
+        }
+
+    .form-control {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    button.btn-primary {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .create-event-container {
+        padding: 15px;
+        margin: 15px;
+    }
+
+        .create-event-container h2 {
+            font-size: 20px;
+        }
+
+    .form-control {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    button.btn-primary {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+
+@media (min-width: 768px) {
+    .navbar-toggler {
+        display: none !important; /* Hide toggle button on large screens */
+    }
+}

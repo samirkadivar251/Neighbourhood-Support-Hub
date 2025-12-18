@@ -1,0 +1,108 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Admin Dashboard";
+}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<div class="admin-dashboard container">
+    <div class="dashboard-header text-center">
+        <h2>Welcome, <span>@ViewBag.AdminName</span>! 👋</h2>
+        <p class="sub-heading"></p>
+    </div>
+
+    <div class="dashboard-grid">
+        <a href="@Url.Action("Users", "Admin")" class="dashboard-card">
+            <i class="fas fa-users"></i>
+            <p>Manage Users</p>
+        </a>
+        <a href="@Url.Action("Requests", "Admin")" class="dashboard-card">
+            <i class="fas fa-tasks"></i>
+            <p>Manage Requests</p>
+        </a>
+        <a href="@Url.Action("ManageEvents", "Admin")" class="dashboard-card">
+            <i class="fas fa-calendar-check"></i>
+            <p>Manage Events</p>
+        </a>
+        <a href="@Url.Action("Logout", "Users")" class="dashboard-card logout">
+            <i class="fas fa-sign-out-alt"></i>
+            <p>Logout</p>
+        </a>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #f4f7fc;
+    }
+
+    .admin-dashboard {
+        margin-top: 40px;
+    }
+
+    .dashboard-header h2 {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #2c3e50;
+    }
+
+    .dashboard-header .sub-heading {
+        font-size: 1rem;
+        color: #7f8c8d;
+        margin-bottom: 20px;
+    }
+
+    .dashboard-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .dashboard-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: #ffffff;
+        border-radius: 12px;
+        padding: 25px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        text-decoration: none;
+        transition: 0.3s ease-in-out;
+        text-align: center;
+    }
+
+        .dashboard-card i {
+            font-size: 2.5rem;
+            color: #3498db;
+            margin-bottom: 12px;
+        }
+
+        .dashboard-card p {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #333;
+            margin: 0;
+        }
+
+        .dashboard-card:hover {
+            background: #3498db;
+            transform: translateY(-5px);
+        }
+
+            .dashboard-card:hover i,
+            .dashboard-card:hover p {
+                color: #fff;
+            }
+
+    .logout {
+        background: #e74c3c;
+    }
+
+        .logout:hover {
+            background: #c0392b;
+        }
+</style>

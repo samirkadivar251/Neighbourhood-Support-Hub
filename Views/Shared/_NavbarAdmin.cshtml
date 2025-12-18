@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "Admin Navbar";
+}
+<!-- Toggle Button for Mobile -->
+<button class="btn btn-primary toggle-navbar" onclick="toggleNavbar()">
+    <i class="bi bi-list"></i>
+</button>
+<!-- Sidebar Navigation -->
+<div class="left-navbar" id="leftNavbar">
+    <div class="navbar-logo2">
+        <img src="~/Content/img/iconi.png" alt="Website Logo" class="navbar-logo-img" />
+    </div>
+
+    <span class="navbar-text">Welcome, @Session["UserName"]</span>
+
+    <a href="@Url.Action("Index", "Home")"><i class="bi bi-house"></i> <span>Home</span></a>
+    <a href="@Url.Action("Dashboard", "Admin")"><i class="bi bi-calendar-event"></i> <span>DashBoard</span></a>
+
+
+    <!-- Events Dropdown -->
+    <div class="dropdown">
+        <a href="#" class="dropdown-toggle" id="eventsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-calendar-event"></i> <span>Events</span>
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="eventsDropdown">
+            <li><a class="dropdown-item" href="@Url.Action("CreateEvent", "Home")"><i class="bi bi-calendar-plus"></i> Create Event</a></li>
+            <li><a class="dropdown-item" href="@Url.Action("ViewEvents", "Home")"><i class="bi bi-calendar-check"></i> View Events</a></li>
+        </ul>
+    </div>
+    <a href="@Url.Action("Users", "Admin")" class="list-group-item list-group-item-action d-flex align-items-center">
+        <i class="bi bi-people me-2"></i> Manage Users
+    </a>
+    <a href="@Url.Action("Requests", "Admin")" class="list-group-item list-group-item-action d-flex align-items-center">
+        <i class="bi bi-list-check me-2"></i> Manage Requests
+    </a>
+    <a href="@Url.Action("ManageEvents", "Admin")" class="list-group-item list-group-item-action d-flex align-items-center">
+        <i class="bi bi-calendar-event me-2"></i> Manage Events
+    </a>
+
+    <a href="@Url.Action("Logout", "Users")"><i class="bi bi-box-arrow-left"></i> <span>Logout</span></a>
+
+</div>
+

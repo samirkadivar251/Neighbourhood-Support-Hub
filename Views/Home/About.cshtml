@@ -1,0 +1,92 @@
+﻿@{
+    ViewBag.Title = "About Us";
+}
+<style>
+    .text-justify {
+        text-align: justify;
+    }
+
+    body {
+        overflow-x: hidden;
+        font-family: Arial, sans-serif;
+    }
+</style>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="~/Content/styles.css">
+
+<div class="container about-container">
+    <!-- Header -->
+    <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+        <div class="col-lg-10 col-md-12 bg-white rounded shadow p-4">
+            <div class="text-center mb-4">
+                <img src="~/Content/img/about.png" alt="Who We Are" class="img-fluid" style="max-height: 200px; border-radius: 8px;">
+            </div>
+
+            <h1 class="text-center text-primary fw-bold mb-3">About Us</h1>
+
+            <p class="text-justify">
+                Welcome to <strong>Neighbourhood Support Hub</strong>, a platform designed to build a strong, peaceful, and supportive community. We understand that a thriving neighborhood is built on trust, cooperation, and mutual assistance. Our mission is to create a digital space where community members can connect, collaborate, and help each other in times of need.
+            </p>
+
+            <p class="text-justify">
+                At <strong>Neighbourhood Support Hub</strong>, we believe that small actions can lead to big changes. Whether it’s organizing events, volunteering for a cause, helping a neighbor in an emergency, or sharing resources, our platform makes it easy for you to get involved and make a difference.
+            </p>
+
+            <h3 class="text-secondary fw-bold mt-4">What You Can Do on Our Platform:</h3>
+
+            <h5 class="text-info mt-3">Create & Join Events:</h5>
+            <p class="text-justify">
+                Want to host a community cleanup, a festival, or a social gathering? You can create events and invite neighbors to participate. Stay informed about upcoming local events and get involved in activities that matter to you.
+            </p>
+
+            <h5 class="text-info mt-3">Volunteer Opportunities:</h5>
+            <p class="text-justify">
+                If you have time and passion to support others, you can apply for volunteering roles within your community. Whether it’s helping the elderly, organizing charity drives, or teaching kids, your contribution can positively impact someone’s life.
+            </p>
+
+            <h5 class="text-info mt-3">Request Help & Emergency Support:</h5>
+            <p class="text-justify">
+                Facing an urgent situation? Our platform allows you to seek immediate help from neighbors during emergencies, such as medical issues, household repairs, or personal crises. A helping hand is always nearby.
+            </p>
+
+            <h5 class="text-info mt-3">Borrow & Share Items:</h5>
+            <p class="text-justify">
+                Need a tool for quick repairs or sports equipment for the weekend? Instead of buying, why not borrow from your neighbors? Our item-sharing feature allows members to lend and borrow everyday items, promoting resource-sharing and reducing waste.
+            </p>
+
+            <h3 class="text-secondary fw-bold mt-4">Why Choose Us?</h3>
+            <p class="text-justify">
+                <strong>Neighbourhood Support Hub</strong> is more than just a platform; it is a community-driven initiative aimed at bringing people closer. We value unity, safety, and compassion. Together, we can transform our neighborhood into a place where everyone feels supported and connected.
+            </p>
+        </div>
+    </div>
+
+    <!-- Team Section -->
+    <div class="text-center team-section">
+        <h2>Meet Our Team</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-3 team-member">
+                <img src="~/Content/img/sk.jpg" alt="Team Member">
+                <h5>Samir Kadivar</h5>
+                <p>Founder & CEO</p>
+            </div>
+            <div class="col-md-3 team-member">
+                <img src="~/Content/img/pc.jpg" alt="Team Member">
+                <h5>Pradip Chavada</h5>
+                <p>Community Manager</p>
+            </div>
+            <div class="col-md-3 team-member">
+                <img src="~/Content/img/dk.jpg" alt="Team Member">
+                <h5>Dhruv khant</h5>
+                <p>Technical Lead</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="cta text-center">
+        <h3>Join Us & Make a Difference</h3>
+        <a href="@Url.Action("Register", "Users")" class="btn btn-primary">Get Started</a>
+    </div>
+</div>

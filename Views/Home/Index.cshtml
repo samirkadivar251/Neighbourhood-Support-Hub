@@ -1,0 +1,74 @@
+﻿@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (ViewBag.UserName != null)
+{
+    <h2>Welcome, @ViewBag.UserName!</h2>
+    <a href="@Url.Action("Logout", "Home")">Logout</a>
+    <br />
+    <a href="@Url.Action("CreateEvent", "Home")">Create Event</a>
+    <br />
+    <a href="@Url.Action("ViewEvents", "Home")">View Events</a>
+}
+else
+{
+    <h2>Welcome to Neighborhood Support Hub!</h2>
+    <a href="@Url.Action("Login", "Users")">Login</a>
+}
+
+
+<div class="content2">
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="~/Content/img/3.jpg" class="d-block w-100 slider-img" alt="Community Support">
+                <div class="carousel-caption">
+                    <h3>Building a Strong and Peaceful Community</h3>
+                    <p>Join us to create a better neighborhood with support and collaboration.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="~/Content/img/ian-schneider-PAykYb-8Er8-unsplash.jpg" class="d-block w-100 slider-img" alt="Events">
+                <div class="carousel-caption">
+                    <h3>Organize and Join Events</h3>
+                    <p>Participate in community events to make a difference.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="~/Content/img/4.jpg" class="d-block w-100 slider-img" alt="Emergency Support">
+                <div class="carousel-caption">
+                    <h3>Emergency Assistance</h3>
+                    <p>Report and respond to emergencies in real time.</p>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        </button>
+    </div>
+</div>
+
+<style>
+    .content2 {
+        width: calc(100vw - 240px); /* Full width minus navbar */
+        height: 100vh; /* Full height */
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        left: 240px; /* Offset to start after navbar */
+        top: 0;
+        overflow: hidden; /* Prevent scrolling */
+    }
+
+    .slider-img {
+        height: 100vh; /* Default height */
+        object-fit: cover; /* Ensures image fits without distortion */
+    }
+
+    /* Responsive adjustments */
+
+</style>

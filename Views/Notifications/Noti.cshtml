@@ -1,0 +1,188 @@
+﻿@model List<NSH.Models.Notification>
+
+@{
+    ViewBag.Title = "Notifications";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Notifications</h2>
+
+        <!-- Notification Bell Icon with Red Dot -->
+        <div class="notification-bell position-relative">
+            <i id="notificationBell" class="fa fa-bell notification-icon"></i>
+            <span id="notificationDot" class="notification-dot hidden"></span>
+        </div>
+    </div>
+
+    <!-- Notifications Grid -->
+    <div class="table-responsive">
+        <table class="table table-hover align-middle shadow-sm rounded">
+            <thead class="table-light">
+                <tr>
+                    <th>User</th>
+                    <th>Notification</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody id="notificationTableBody">
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var notification in Model)
+                    {
+                        <tr class="notification-row @(notification.IsRead ? "read" : "unread")"
+                            data-id="@notification.Id"
+                            data-eventid="@notification.EventId"
+                            data-requestid="@notification.RequestId">
+                            <td>
+                                <strong class="username-text">@GetUserName(notification.UserId)</strong>
+                            </td>
+                            <td>
+                                <span class="notification-message">@notification.Message</span>
+                            </td>
+                            <td>
+                                <small class="text-muted">
+                                    @notification.CreatedAt.ToString("MMM dd, yyyy hh:mm tt")
+                                </small>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="3" class="text-center text-muted">No notifications available.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Custom Styles -->
+<style>
+    .notification-bell {
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+    .notification-icon.red {
+        color: red;
+    }
+
+    .notification-dot {
+        position: absolute;
+        top: -2px;
+        right: -4px;
+        width: 10px;
+        height: 10px;
+        background: red;
+        border-radius: 50%;
+        box-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .table .notification-row.unread td {
+        background-color: #ffe4e1 !important;
+    }
+
+    .table .notification-row.read td {
+        background-color: #f8f9fa !important;
+    }
+    .table .notification-row.unread td {
+        background-color: #ffe4e1 !important;
+        border-left: 4px solid #dc3545;
+        font-weight: bold;
+    }
+
+    .table .notification-row.read td {
+        background-color: #f8f9fa !important;
+        border-left: 4px solid transparent;
+    }
+
+
+
+    .notification-message {
+        color: #333;
+    }
+
+    .username-text {
+        color: #0d6efd;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #e9ecef;
+    }
+</style>
+
+<!-- AJAX Script for Notifications -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        checkUnreadNotifications();
+        setInterval(checkUnreadNotifications, 5000); // Check every 5 seconds
+
+       $(".notification-row").click(function (event) {
+    event.preventDefault();
+    var notificationId = $(this).data("id");
+    var notificationRow = $(this);
+    var eventId = notificationRow.data("eventid");
+    var requestId = notificationRow.data("requestid");
+
+    var redirectUrl = "#";
+    if (eventId) {
+        redirectUrl = '@Url.Action("EventDetails", "Home")' + '?id=' + eventId;
+    } else if (requestId) {
+        redirectUrl = '@Url.Action("Index", "Requests")' + '?id=' + requestId;
+    }
+
+    $.ajax({
+        url: '@Url.Action("MarkAsRead", "Notifications")',
+        type: 'POST',
+        data: { id: notificationId },
+        success: function () {
+            // Update classes
+            notificationRow.removeClass("unread").addClass("read");
+
+            // Optional: fade effect
+            notificationRow.fadeOut(100, function () {
+                $(this).fadeIn(100);
+            });
+
+            // Update bell icon
+            checkUnreadNotifications();
+
+            // Redirect
+            setTimeout(function () {
+                window.location.href = redirectUrl;
+            }, 300);
+        },
+        error: function () {
+            alert("Error marking notification as read.");
+        }
+    });
+});
+
+        function checkUnreadNotifications() {
+            $.get('@Url.Action("GetUnreadNotificationCount", "Notifications")', function (data) {
+                if (data.count > 0) {
+                    $("#notificationDot").removeClass("hidden");
+                    $("#notificationBell").addClass("red");
+                } else {
+                    $("#notificationDot").addClass("hidden");
+                    $("#notificationBell").removeClass("red");
+                }
+            });
+        }
+    });
+</script>
+
+@functions {
+    public string GetUserName(int? userId)
+    {
+        return userId.HasValue ? "User " + userId.Value : "System";
+    }
+}

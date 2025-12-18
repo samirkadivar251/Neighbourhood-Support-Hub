@@ -1,0 +1,151 @@
+﻿@using NSH.Models
+@model NSH.Models.EventModel
+
+@{
+    ViewBag.Title = "Event Details";
+}
+
+<link href="~/Content/EventDetails.css" rel="stylesheet" type="text/css" />
+
+<div class="event-detail-container">
+    <h2>@Model.EventTitle</h2>
+
+    @if (!string.IsNullOrEmpty(Model.ImagePath))
+    {
+        <img src="@Url.Content(Model.ImagePath)" alt="Event Image" class="event-image" />
+    }
+
+    <p><strong>Date:</strong> @Model.EventDate.ToShortDateString() @Model.EventTime</p>
+    <p><strong>Description:</strong> @Model.EventDescription</p>
+    <p><strong>Organizer:</strong> @Model.OrganizerInfo</p>
+    <p><strong>Location:</strong> @Model.Location</p>
+
+    @if (Session["UserId"] != null)
+    {
+        if (ViewBag.HasAttended != null && (bool)ViewBag.HasAttended)
+        {
+            <button class="btn btn-secondary" style="pointer-events: none; cursor: not-allowed; opacity: 0.6;">
+                Already Attended
+            </button>
+        }
+        else
+        {
+            <form action="@Url.Action("AttendEvent", "Home")" method="post">
+                <input type="hidden" name="eventId" value="@Model.Id" />
+                <button type="submit" class="btn btn-success">Attend Event</button>
+            </form>
+        }
+    }
+    else
+    {
+        <a href="@Url.Action("Login", "Users")" class="btn btn-warning">Login to Attend</a>
+    }
+
+    <a href="@Url.Action("ViewEvents", "Home")" class="back-btn">Back to Events</a>
+
+    <h3>Attendees:</h3>
+    @if (ViewBag.Attendees != null && ((List<string>)ViewBag.Attendees).Count > 0)
+    {
+        <table class="attendee-table">
+            <thead>
+                <tr>
+                    <th>Sr</th>
+                    <th>Attendee Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ int count = 1; }
+                @foreach (var attendee in ViewBag.Attendees)
+                {
+                    <tr>
+                        <td>@count</td>
+                        <td>@attendee</td>
+                    </tr>
+                    count++;
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p class="no-attendees">No attendees yet.</p>
+    }
+</div>
+
+<script>
+    const form = document.querySelector("form");
+    if (form) {
+        form.addEventListener("submit", function (e) {
+            this.querySelector("button[type='submit']").disabled = true;
+        });
+    }
+</script>
+
+
+<style>
+    .event-detail-container {
+        max-width: 600px;
+        margin: auto;
+        text-align: center;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .event-image {
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+        border-radius: 10px;
+    }
+
+    .back-btn {
+        display: inline-block;
+        margin-top: 15px;
+        padding: 8px 12px;
+        background-color: #28a745;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+
+        .back-btn:hover {
+            background-color: #218838;
+        }
+
+    .attendee-table {
+        width: 100%;
+        max-width: 500px;
+        margin: 10px auto;
+        border-collapse: collapse;
+        text-align: left;
+        border: 1px solid #ddd;
+    }
+
+        .attendee-table th, .attendee-table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .attendee-table th {
+            background: #007bff;
+            color: white;
+        }
+
+        .attendee-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .attendee-table tr:hover {
+            background: #e9ecef;
+            transition: 0.3s;
+        }
+
+    .no-attendees {
+        color: #888;
+        font-style: italic;
+        text-align: center;
+        margin-top: 10px;
+    }
+</style>

@@ -1,0 +1,102 @@
+﻿@{
+    ViewBag.Title = "User Navbar";
+}
+
+<!-- Toggle Button for Mobile -->
+<button class="btn btn-primary toggle-navbar" onclick="toggleNavbar()">
+    <i class="bi bi-list"></i>
+</button>
+
+<!-- Sidebar Navigation -->
+<div class="left-navbar" id="leftNavbar">
+    <div class="navbar-logo2">
+        <img src="~/Content/img/iconi.png" alt="Website Logo" class="navbar-logo-img" />
+    </div>
+
+    <span class="navbar-text">Welcome, @Session["UserName"]</span>
+
+    <a href="@Url.Action("Index", "Home")"><i class="bi bi-house"></i> <span>Home</span></a>
+    <a href="@Url.Action("Dashboard", "Users")"><i class="bi bi-speedometer2"></i> <span>Dashboard</span></a>
+
+    <!-- Events Dropdown -->
+    <div class="dropdown">
+        <a href="#" class="dropdown-toggle" id="eventsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-calendar-event"></i> <span>Events</span>
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="eventsDropdown">
+            @if (Session["UserID"] != null)
+            {
+                <li><a class="dropdown-item" href="@Url.Action("CreateEvent", "Home")"><i class="bi bi-calendar-plus"></i> Create Event</a></li>
+            }
+            <li><a class="dropdown-item" href="@Url.Action("ViewEvents", "Home")"><i class="bi bi-calendar-check"></i> View Events</a></li>
+        </ul>
+    </div>
+
+
+    <!-- Requests Dropdown -->
+    <div class="dropdown">
+        <a href="#" class="dropdown-toggle" id="requestsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-exclamation-triangle"></i> <span>Request Assistance</span>
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="requestsDropdown">
+            @if (Session["UserID"] != null)
+            {
+                <li><a class="dropdown-item" href="@Url.Action("Create", "Requests")"><i class="bi bi-pencil-square"></i> Create Request</a></li>
+            }
+            <li><a class="dropdown-item" href="@Url.Action("Index", "Requests")"><i class="bi bi-list-ul"></i> View Requests</a></li>
+        </ul>
+    </div>
+
+    <a href="@Url.Action("About", "Home")"><i class="bi bi-info-circle"></i> <span>About</span></a>
+    <a href="@Url.Action("Contact", "Home")"><i class="bi bi-telephone"></i> <span>Contact</span></a>
+
+    <!-- 🔴 Notifications (Turns Red If Unread Notifications Exist) -->
+    <a class="nav-link position-relative" href="@Url.Action("Noti", "Notifications")">
+        <i id="notificationBell" class="bi bi-bell notification-icon"></i>
+        <span>Notifications</span>
+        <span id="notificationCountBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.7rem; display:none;">
+            0
+        </span>
+    </a>
+
+
+
+    <a href="@Url.Action("Logout", "Users")"><i class="bi bi-box-arrow-left"></i> <span>Logout</span></a>
+</div>
+
+<!-- Custom Styles for Notification Bell -->
+<style>
+    .notification-icon {
+        transition: color 0.3s ease-in-out;
+    }
+
+        .notification-icon.red {
+            color: red;
+        }
+    .badge {
+        padding: 0.25em 0.4em;
+    }
+
+</style>
+
+<!-- AJAX to Check for New Notifications and Change Bell Color -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        checkUnreadNotifications();
+        setInterval(checkUnreadNotifications, 5000); // Check every 5 seconds
+
+       function checkUnreadNotifications() {
+    $.get('@Url.Action("GetUnreadNotificationCount", "Notifications")', function (data) {
+        if (data.count > 0) {
+            $("#notificationBell").addClass("red");
+            $("#notificationCountBadge").text(data.count).show();
+        } else {
+            $("#notificationBell").removeClass("red");
+            $("#notificationCountBadge").hide();
+        }
+    });
+}
+
+    });
+</script>

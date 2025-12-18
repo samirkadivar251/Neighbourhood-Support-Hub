@@ -1,0 +1,103 @@
+﻿/* Register Page Styles */
+.register-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f7fc;
+}
+
+.register-container {
+    width: 100%;
+    max-width: 450px;
+    padding: 30px;
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+}
+
+/* Form Header */
+.register-header {
+    font-size: 26px;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Form Elements */
+.register-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-group {
+    width: 100%;
+    margin-bottom: 15px;
+    text-align: left;
+    position: relative; /* Ensures validation message aligns properly */
+}
+
+.register-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.register-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+    .register-input:focus {
+        border-color: #5c6bc0;
+        outline: none;
+    }
+
+/* Error Messages */
+.error-message {
+    color: red;
+    font-size: 13px;
+    margin-top: 5px;
+    display: block; /* Ensures message stays below input */
+}
+
+/* Register Button */
+.register-button {
+    background-color: #5c6bc0;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+    .register-button:hover {
+        background-color: #3f4b9d;
+    }
+
+/* Login Option */
+.login-option {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+    .login-option a {
+        color: #5c6bc0;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+        .login-option a:hover {
+            text-decoration: underline;
+        }

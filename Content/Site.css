@@ -1,0 +1,95 @@
+﻿body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* Main container styling */
+.create-event-container, .event-container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Form styling */
+.form-group {
+    margin-bottom: 15px;
+}
+
+    .form-group label {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* Event card styles */
+.event-card {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    background: white;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.event-image {
+    max-width: 250px;
+    height: auto;
+    border-radius: 5px;
+    margin-right: 15px;
+}
+
+.event-content {
+    flex: 1;
+}
+
+    .event-content h3 {
+        color: #007bff;
+        margin-bottom: 10px;
+    }
+
+    .event-content p {
+        margin: 5px 0;
+        color: #555;
+    }
+
+.btn-primary {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+}
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .event-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .event-image {
+        max-width: 100%;
+        margin-bottom: 10px;
+    }
+}

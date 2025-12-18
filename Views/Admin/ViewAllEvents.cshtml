@@ -1,0 +1,43 @@
+﻿@using NSH.Models
+@model List<NSH.Models.EventModel>
+
+@{
+    ViewBag.Title = "Manage Events";
+}
+
+<link href="~/Content/AdminEvents.css" rel="stylesheet" type="text/css" />
+
+<div class="admin-events-container">
+    <h2>Manage Events</h2>
+
+    @if (Model?.Count > 0)
+    {
+        <table class="event-table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Date</th>
+                    <th>Organizer</th>
+                    <th>Location</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var eventItem in Model)
+                {
+                    @Html.Partial("_EventRowPartial", eventItem)
+
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No events available.</p>
+    }
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/AdminEvents.js"></script>
+}

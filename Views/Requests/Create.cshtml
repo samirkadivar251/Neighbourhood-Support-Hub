@@ -1,0 +1,40 @@
+﻿@model NSH.Models.RequestModel
+
+@{
+    ViewBag.Title = "Create New Request";
+}
+
+<h2>Create New Request</h2>
+
+@using (Html.BeginForm("Create", "Requests", FormMethod.Post))
+{
+    @Html.AntiForgeryToken() <!-- ✅ Fix: This adds the anti-forgery token -->
+
+    <div>
+        <label>Title</label>
+        @Html.TextBoxFor(m => m.Title, new { @class = "form-control", required = "required" })
+    </div>
+
+    <div>
+    <label for="Category">Category:</label>
+    @Html.DropDownListFor(m => m.Category, new List<SelectListItem>
+    {
+        new SelectListItem { Text = "Volunteer", Value = "Volunteer" },
+        new SelectListItem { Text = "Borrow", Value = "Borrow" },
+        new SelectListItem { Text = "Emergency", Value = "Emergency" }
+    }, "Select a Category", new { @class = "form-control", required = "required" })
+</div>
+
+
+    <div>
+        <label>Description</label>
+        @Html.TextAreaFor(m => m.Description, new { @class = "form-control", required = "required" })
+    </div>
+
+    <div>
+        <label>Contact</label>
+        @Html.TextBoxFor(m => m.Contact, new { @class = "form-control", required = "required" })
+    </div>
+<br>
+    <button type="submit" class="btn btn-primary">Submit Request</button>
+}

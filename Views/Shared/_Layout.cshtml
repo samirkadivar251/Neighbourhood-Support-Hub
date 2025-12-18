@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+    <link href="~/Content/Register.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/Content/StyleSheet3.css">
+</head>
+<body>
+
+    <!-- Toggle Button for Mobile -->
+    @{
+        bool isLoggedIn = Session["UserID"] != null;
+        bool isAdmin = Session["IsAdmin"] != null && (bool)Session["IsAdmin"];
+    }
+
+    @if (!isLoggedIn)
+    {
+        @Html.Partial("_NavbarDefault") <!-- Guest navbar -->
+    }
+    else if (isAdmin)
+    {
+        @Html.Partial("_NavbarAdmin") <!-- Admin navbar -->
+    }
+    else
+    {
+        @Html.Partial("_NavbarUser") <!-- User navbar -->
+    }
+
+
+
+    <!-- Main Content -->
+    <div class="content" style="margin-left: 250px; padding: 20px;">
+        @RenderBody()
+    </div>
+
+    <!-- Sidebar Toggle Script -->
+    <script>
+        function toggleNavbar() {
+            const navbar = document.getElementById('leftNavbar');
+            navbar.classList.toggle('active');
+        }
+    </script>
+    <script src="~/Scripts/jquery.signalR-2.4.1.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+
+    <script>
+        $(function () {
+            var hub = $.connection.notificationHub;
+
+            hub.client.receiveNotification = function (message, eventId, eventName, requestId, requestName) {
+                var url = "#";
+                if (eventId) {
+                    url = "/Event/Details/" + eventId;
+                } else if (requestId) {
+                    url = "/Request/Details/" + requestId;
+                }
+
+                $('#notificationList').prepend('<li class="unread"><a href="' + url + '">' + message + '</a></li>');
+                alert("New Notification: " + message);
+            };
+
+            $.connection.hub.start();
+        });
+    </script>
+@*    <footer style="background-color: #1f232a; color: white; text-align: center; padding: 20px;">
+        <div>
+            <img src="~/Content/img/icons.jpg" alt="Neighborhood Support Hub" style="height: 40px; margin-bottom: 10px;" />
+            <div style="margin: 10px 0;">
+                <a href="#" style="color: white; margin: 0 10px;"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" style="color: white; margin: 0 10px;"><i class="fab fa-twitter"></i></a>
+                <a href="#" style="color: white; margin: 0 10px;"><i class="fab fa-instagram"></i></a>
+                <a href="#" style="color: white; margin: 0 10px;"><i class="fab fa-google-plus-g"></i></a>
+            </div>
+            <p style="margin: 0; font-size: 14px;">© 2025 Neighborhood Support Hub. All rights reserved.</p>
+        </div>
+    </footer>*@
+
+
+    <style>
+        footer a:hover {
+            color: #ffc107;
+            text-decoration: none;
+        }
+    </style>
+
+
+
+</body>
+</html>

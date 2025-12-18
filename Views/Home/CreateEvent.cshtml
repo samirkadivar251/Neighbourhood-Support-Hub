@@ -1,0 +1,76 @@
+﻿@using NSH.Models
+@model NSH.Models.EventModel
+
+@{
+    ViewBag.Title = "Create Event";
+}
+
+<link href="~/Content/CreateEvent.css" rel="stylesheet" type="text/css" />
+
+<div class="create-event-container">
+    <h2>Create Event</h2>
+
+    <!-- Success and Error Message Alerts -->
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <script>
+            alert("@TempData["SuccessMessage"]");
+        </script>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <script>
+            alert("@TempData["ErrorMessage"]");
+        </script>
+    }
+
+    @using (Html.BeginForm("CreateEvent", "Home", FormMethod.Post, new { @class = "form", enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.EventTitle, new { @class = "control-label" })
+            @Html.TextBoxFor(m => m.EventTitle, new { @class = "form-control", placeholder = "Enter event title", required = "required" })
+            @Html.ValidationMessageFor(m => m.EventTitle, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.EventDate, new { @class = "control-label" })
+            @Html.TextBoxFor(m => m.EventDate, new { @class = "form-control", type = "date", required = "required" })
+            @Html.ValidationMessageFor(m => m.EventDate, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.EventTime, new { @class = "control-label" })
+            @Html.TextBoxFor(m => m.EventTime, new { @class = "form-control", type = "time", required = "required" })
+            @Html.ValidationMessageFor(m => m.EventTime, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.EventDescription, new { @class = "control-label" })
+            @Html.TextAreaFor(m => m.EventDescription, new { @class = "form-control", placeholder = "Enter event description", required = "required", rows = "4" })
+            @Html.ValidationMessageFor(m => m.EventDescription, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.OrganizerInfo, new { @class = "control-label" })
+            @Html.TextBoxFor(m => m.OrganizerInfo, new { @class = "form-control", placeholder = "Enter organizer info", required = "required" })
+            @Html.ValidationMessageFor(m => m.OrganizerInfo, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Location, new { @class = "control-label" })
+            @Html.TextBoxFor(m => m.Location, new { @class = "form-control", placeholder = "Enter event location", required = "required" })
+            @Html.ValidationMessageFor(m => m.Location, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Upload Event Image", new { @class = "control-label" })
+            <input type="file" name="image" class="form-control" accept="image/*" />
+            @Html.ValidationMessage("image", "", new { @class = "text-danger" })
+        </div>
+
+        <button type="submit" class="btn btn-primary">Create Event</button>
+    }
+</div>
